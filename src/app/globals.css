@@ -1,8 +1,8 @@
+@import "tailwindcss";
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -13,7 +13,9 @@
 html,
 body {
   max-width: 100vw;
+  min-height: 100%;
   overflow-x: hidden;
+  background: -webkit-linear-gradient(90deg,#29d6d4,#00b7e1,#0093e3,#3068cd,#77309a); /* Chrome 10-25, Safari 5.1-6 */ background: linear-gradient(90deg,#29d6d4,#00b7e1,#0093e3,#3068cd,#77309a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 body {
@@ -22,12 +24,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
