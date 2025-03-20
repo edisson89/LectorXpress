@@ -18,13 +18,32 @@ function Lectura() {
 	const [isPlaying, setIsPlaying] = useState(initialIsPlaying)
 	// Calcular palabras por minuto
 	const wordsPerMinute = Math.round((60000 / speed) * wordCount)
+	const [elapsedTime, setElapsedTime] = useState(0); // Cronómetro
 	// Función para resetear el estado
 	const resetState = () => {
 		setWordCount(initialSpeed)
 		setIsPlaying(initialIsPlaying)
-    setIndex(0)
+		setElapsedTime(0); // Reiniciar el cronómetro
+        setIndex(0)
 	}
+	// Manejar el cronómetro
+	useEffect(() => {
+		let timer;
+		if (isPlaying) {
+		  timer = setInterval(() => {
+			setElapsedTime((prevTime) => prevTime + 1); // Incrementar en 1 segundo
+		  }, 1000);
+		}
+		return () => {
+		  if (timer) clearInterval(timer);
+		};
+	  }, [isPlaying]);
 
+	  // Calcular el intervalo dinámicamente
+	  useEffect(() => {
+		const calculatedSpeed = Math.round((60000 / wordsPerMinute) * wordCount);
+		setSpeed(calculatedSpeed); // Actualizar el estado de velocidad
+	  }, [wordsPerMinute, wordCount]);
 	useEffect(() => {
     let interval; // Declarar el intervalo fuera del bloque
   if (isPlaying) {
@@ -93,6 +112,7 @@ function Lectura() {
 					/>
 					<span>{speed}ms</span>
 				</div>
+				<p>Tiempo transcurrido: {elapsedTime} segundos</p>
 
 				<button
 					className="m-8 w-25 px-4 py-2 bg-blue-500 text-white rounded-xl"
