@@ -128,6 +128,8 @@ function Lectura() {
 					<span>{speed}ms</span>
 				</div>
 				<p>Tiempo transcurrido: {elapsedTime} segundos</p>
+			<div className="flex flex-nowrap h-18 items-center m-8 justify-center p-4 text-3xl font-semibold bg-gray-200 rounded-xl">{words.slice(index, index + wordCount).join(" ")}</div>
+
 
 				<button
 					className="m-8 w-25 px-4 py-2 bg-blue-500 text-white rounded-xl"
@@ -142,7 +144,6 @@ function Lectura() {
 					Resetear
 				</button>
 			</div>
-			<div className="flex flex-nowrap h-14 items-center m-8 justify-center p-4 text-2xl font-semibold bg-gray-200 rounded-xl">{words.slice(index, index + wordCount).join(" ")}</div>
 			<Footer />
 		</div>
 	)
