@@ -43,16 +43,24 @@ function Lectura() {
 		console.log("isPlaying:", isPlaying);
 		console.log("speed:", speed);
 		let interval 
+		
 		if (isPlaying && intervalTime > 0) {
 			interval = setInterval(() => {
 				setIndex((prevIndex) => {
-					if (prevIndex >= words.length - wordCount) {
-						return 0
-					}
-					return prevIndex + wordCount
+					const nextIndex = prevIndex + wordCount;
+
+        // Verificar si hemos alcanzado el final de la lectura
+        if (nextIndex >= words.length) {
+          setIsPlaying(false); // Detener la reproducción
+          clearInterval(interval); // Limpiar el intervalo
+          return prevIndex; // Mantener el índice actual
+        }
+
+        return nextIndex; // Avanzar al siguiente índice
 				})
 			}, intervalTime)
 		}
+
 		// Limpiar el intervalo en el return del useEffect
 		return () => {
 			if (interval) {
@@ -67,6 +75,8 @@ function Lectura() {
 		setElapsedTime(0) // Reiniciar el cronómetro
 		setIndex(0)
 	}
+
+	
 	// Manejar el cronómetro
 	useEffect(() => {
 		let timer
@@ -95,9 +105,9 @@ function Lectura() {
 				<div className="flex w-full h-14 text-amber-200 text-2xl size-3.5 justify-center p-2 m-2">Lectura Rapida</div>
 			</div>
 
-			<h1 className="p-3 m-5">Resumen del Libro &quot;Los Secretos de la Mente Millonaria&ldquo; de T. Harv Eker</h1>
+			<h1 className="p-3 m-3 mr-5 font-bold text-3xl" >Aprende con la IA GEMINI &quot;Aprender ingles con Historias&ldquo; divertidas</h1>
 			<div className="p-4 text-center space-y-4">
-				<h2 className="m-8 text-xl font-bold">A Que Velocidad Puedes Leer!!!</h2>
+				<h2 className="m-3 text-xl font-bold">A Que Velocidad Puedes Leer!!!</h2>
 				<p className="m-9 text-2xl font-bold bg-yellow-500 text-black px-4 py-2 rounded-lg">
 					🚀 Puedes leer a: <strong>{wordsPerMinute} WPM(Palabras Por minuto)</strong>
 				</p>
@@ -127,9 +137,9 @@ function Lectura() {
 					/>
 					<span>{speed}ms</span>
 				</div>
-				<p>Tiempo transcurrido: {elapsedTime} segundos</p>
-			<div className="flex flex-nowrap h-18 items-center m-8 justify-center p-4 text-3xl font-semibold bg-gray-200 rounded-xl">{words.slice(index, index + wordCount).join(" ")}</div>
-
+				
+			<div className="flex flex-nowrap h-18 items-center m-8 justify-center p-4 text-5xl font-semibold bg-green-200 rounded-xl">{words.slice(index, index + wordCount).join(" ")}</div>
+			<p>Tiempo transcurrido: {elapsedTime} segundos</p>
 
 				<button
 					className="m-8 w-25 px-4 py-2 bg-blue-500 text-white rounded-xl"
